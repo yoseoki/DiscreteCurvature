@@ -855,12 +855,12 @@ class PatchEmbedding(nn.Module):
                  emb_size: int = 768, img_size: int = 224):
         self.patch_size = patch_size
         super().__init__()
-        self.projection = nn.Sequential(
+        self.projection = nn.Sequential( # 이미지를 패치 토큰으로 변환
             # using a conv layer instead of a linear one -> performance gains
             nn.Conv2d(in_channels, emb_size, kernel_size=patch_size, stride=patch_size),
             Rearrange('b e (h) (w) -> b (h w) e'))
-        self.cls_token = nn.Parameter(torch.randn(1,1, emb_size))
-        self.positions = nn.Parameter(torch.randn((img_size // patch_size) **2 + 1, emb_size))
+        self.cls_token = nn.Parameter(torch.randn(1,1, emb_size)) # 0번째 토큰, 학습 가능
+        self.positions = nn.Parameter(torch.randn((img_size // patch_size) **2 + 1, emb_size)) # 위치 임베딩
         
     def forward(self, x: Tensor) -> Tensor:
         b, _, _, _ = x.shape
