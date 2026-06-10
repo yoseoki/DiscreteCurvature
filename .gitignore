@@ -1,43 +1,61 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
 
-# ignore all log file
+# ── Environments / tooling ──────────────────────────────
+# pixi (lockfile pixi.lock IS committed on purpose)
+.pixi/
+.venv/
+venv/
+.env
+
+# caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# ── Experiment artifacts ────────────────────────────────
+# Hydra run / sweep outputs
+output/
+outputs/
+multirun/
+
+# datasets & checkpoints
+DB/
+*.pt
+*.pth
+*.ckpt
+
+# logs / scripts / qsub leftovers
 *.out
 *.log
-
-# ignore all script file
 *.sh
 
-# ignore all training_result folder
-./**/VGG16*/
-./**/RESNET18*/
-./**/UNET*/
-./**/VIT*/
-./**/LENET*/
-./**/LENET_REVISED*/
-./**/DB*/
-./VGG16*/
-./RESNET18*/
-./UNET*/
-./VIT*/
-./LENET*/
-./LENET_REVISED*/
-./DB*/
-./resnet18_small*/
-./vgg16*/
-./vit*/
-./**/resnet18_small*/
-./**/vgg16*/
-./**/vit*/
-
-# ignore DB folder
-DB/
-
-# ignore result folder
-*result/
+# legacy training-result folders (flat layout, pre-refactor)
+/VGG16*/
+/RESNET18*/
+/UNET*/
+/VIT*/
+/LENET*/
+/resnet18_small*/
+/vgg16*/
+/vit*/
 /result*
+*result/
 
-# ignore __pycache__ folder
-__pycache__/
-/__pycache__
+# ── Editor / OS ─────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
 
-# ignore all main.py
-main.py
+# ── Claude Code local settings ──────────────────────────
+.claude/settings.local.json
