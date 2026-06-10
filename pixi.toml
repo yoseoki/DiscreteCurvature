@@ -1,0 +1,171 @@
+[workspace]
+name = "ModelTrainer"
+version = "0.1.0"
+description = "Workspace for implementing new optimization algorithm and validating it"
+channels = ["pytorch", "nvidia", "conda-forge"]
+platforms = ["linux-64", "osx-arm64"]
+
+[tasks]
+# -----------------
+# --- core loop ---
+# -----------------
+# train   = "python scripts/train.py"
+# eval    = "python scripts/eval.py"
+# sweep   = "python scripts/train.py --multirun"
+
+# ----------------------
+# --- basic training ---
+# ----------------------
+train-resnet18-cifar10-normal = { cmd = """
+  python scripts/train.py --multirun \
+    model=resnet18 \
+    data=cifar10 \
+    optimization=sgd,adam,sgdw,adamw \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-vit-cifar10-normal = { cmd = """
+  python scripts/train.py --multirun \
+    model=vit \
+    data=cifar10 \
+    optimization=sgd,adam,sgdw,adamw \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-resnet18-svhn-normal = { cmd = """
+  python scripts/train.py --multirun \
+    model=resnet18 \
+    data=svhn \
+    optimization=sgd,adam,sgdw,adamw \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-vit-svhn-normal = { cmd = """
+  python scripts/train.py --multirun \
+    model=vit \
+    data=svhn \
+    optimization=sgd,adam,sgdw,adamw \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-resnet18-cifar10-flat = { cmd = """
+  python scripts/train.py --multirun \
+    model=resnet18 \
+    data=cifar10 \
+    optimization=sam,proposed \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-vit-cifar10-flat = { cmd = """
+  python scripts/train.py --multirun \
+    model=vit \
+    data=cifar10 \
+    optimization=sam,proposed \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-resnet18-svhn-flat = { cmd = """
+  python scripts/train.py --multirun \
+    model=resnet18 \
+    data=svhn \
+    optimization=sam,proposed \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+train-vit-svhn-flat = { cmd = """
+  python scripts/train.py --multirun \
+    model=vit \
+    data=svhn \
+    optimization=sam,proposed \
+    'seed=4501,4701,4901,5101,5301' \
+""" }
+
+# ----------------------------
+# --- indicator comparison ---
+# ----------------------------
+comparision-indicator-resnet18 = { cmd = """
+  python scripts/train.py --multirun \
+    model=resnet18 \
+    data=cifar10 \
+    optimization=proposed \
+    'seed=4501,4701,4901,5101,5301' \
+    'experiment=variation_comparison/velocity,variation_comparison/acceleration,variation_comparison/variation'
+""" }
+comparision-indicator-vit = { cmd = """
+  python scripts/train.py --multirun \
+    model=vit \
+    data=cifar10 \
+    optimization=proposed \
+    'seed=4501,4701,4901,5101,5301' \
+    'experiment=variation_comparison/velocity,variation_comparison/acceleration,variation_comparison/variation'
+""" }
+
+# -------------------------
+# --- flatness analysis ---
+# -------------------------
+estimate-hessian = "python scripts/estimate_hessian.py"
+estimate-sharpness = "python scripts/estimate_sharpness.py"
+
+# -------------------------------
+# --- generalization analysis ---
+# -------------------------------
+analyze-generalization = "python scripts/analyze_generalization.py"
+
+# --- analysis & paper ---
+# analyze = "quarto render notebooks/analysis.qmd"
+# paper   = { cmd = "quarto render", cwd = "paper" }
+# report  = { depends-on = ["analyze", "paper"] }
+
+# --- quality ---
+# lint    = "ruff check src scripts tests && ruff format --check src scripts tests"
+# fmt     = "ruff format src scripts tests && ruff check --fix src scripts tests"
+# test    = "pytest tests -v"
+# types   = "basedpyright src scripts"
+# check   = { depends-on = ["lint", "types", "test"] }
+
+# --- utilities ---
+# clean   = "rm -rf outputs/ multirun/ .pytest_cache/ .ruff_cache/"
+# tb      = "tensorboard --logdir outputs/"
+
+[dependencies]
+python = "3.11.*"
+pytorch = { version = ">=2.2", channel = "pytorch" }
+torchvision = { version = "*", channel = "pytorch" }
+numpy = "*"
+pandas = "*"
+matplotlib = "*"
+seaborn = "*"
+scikit-learn = "*"   # SparsePCA for WeightSPCA
+jupyter = "*"
+quarto = "*"
+
+# cupy (GPU-accelerated numpy) is required for src/analysis — Linux CUDA only.
+# On macOS the analysis modules are unavailable; tests are auto-skipped.
+[target.linux-64.dependencies]
+cupy = { version = ">=12", channel = "conda-forge" }
+pytorch-cuda = { version = "12.1.*", channel = "pytorch" }
+
+[pypi-dependencies]
+ml-research = { path = ".", editable = true }
+hatchling = "*"
+# core training
+accelerate = "*"
+timm = "*"
+transformers = "*"
+datasets = "*"
+safetensors = "*"
+# config & logging
+hydra-core = "*"
+hydra-colorlog = "*"
+omegaconf = "*"
+wandb = "*"
+# metrics & utils
+torchmetrics = "*"
+einops = "*"
+jaxtyping = "*"
+beartype = "*"
+rich = "*"
+tqdm = "*"            # used in src/analysis/cone.py
+# dev
+ruff = "*"
+basedpyright = "*"
+pytest = "*"
+pytest-cov = "*"
+hypothesis = "*"
+pre-commit = "*"
+torchsummary = "*"
+fnnlsEigen = "*"
+pyhessian = "*"
