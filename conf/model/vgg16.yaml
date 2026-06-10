@@ -1,0 +1,2 @@
+model_name: "vgg16"
+model_backend: "custom"

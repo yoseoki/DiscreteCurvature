@@ -1,0 +1,21 @@
+learning_rate: 0.1 # 0.05 # for weight decay
+batch_size: 100
+
+reshape_mode: flatten
+mag_mode: orth
+
+salt_policy: direct
+square_flag: true
+
+calc_policy: epoch
+epoch_offset: 5
+epoch_interval: 5
+step_interval: 0
+sampling_step:
+  - 250
+
+mean: 1.0
+
+layer_process: "normal"
+
+weight_decay: 0.0 # 1e-4 # for weight decay

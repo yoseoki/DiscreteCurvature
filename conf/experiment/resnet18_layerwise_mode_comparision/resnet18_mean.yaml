@@ -1,0 +1,19 @@
+# @package _global_
+run_mode: mean
+
+learning_rate: 0.1
+epochs: 70
+batch_size: 100
+sampling_step:
+  - 250
+optimizer: SGD
+criterion: CE
+offset: 5
+interval: 5
+square_flag: true
+salt_policy: direct
+calc_policy: epoch
+calc_interval: 1
+mag_mode: orth
+reshape_mode: flatten
+layerwise_mode: mean

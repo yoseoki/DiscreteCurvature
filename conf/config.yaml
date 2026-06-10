@@ -1,0 +1,25 @@
+defaults:
+  - data: cifar10
+  - model: resnet18
+  - optimization: proposed
+  - hparams: ${model}_${data}_${optimization}
+  - experiment: null
+  - _self_
+
+seed: 3301
+is_verbose: false
+save_flag: false
+save_step:
+  - 0
+
+epochs: 150
+criterion: CE
+
+hydra:
+  run:
+    dir: output/${model.model_name}_${data.name}_${optimization.optimizer_name}/seed_${seed}
+  sweep:
+    dir: output/multirun/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra:runtime.choices.experiment}/${model.model_name}_${data.name}_${optimization.optimizer_name}/seed_${seed}
+  job:
+    chdir: false

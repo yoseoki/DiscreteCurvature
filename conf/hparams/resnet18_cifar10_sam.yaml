@@ -1,0 +1,9 @@
+learning_rate: 0.5 # 0.1 # for no schedule
+batch_size: 100
+
+sampling_step:
+  - 250
+
+weight_decay: 0.0005
+# weight_decay: 0.0
+schedule: COS

@@ -1,0 +1,8 @@
+learning_rate: 0.001 # 0.005 # for cycle schedule
+batch_size: 128
+
+sampling_step:
+  - 100
+
+weight_decay: 0.01
+# schedule: CYCLE

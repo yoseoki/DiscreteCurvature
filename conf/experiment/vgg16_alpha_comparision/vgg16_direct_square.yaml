@@ -1,0 +1,16 @@
+# @package _global_
+run_mode: direct_square
+
+learning_rate: 0.01
+epochs: 100
+batch_size: 64
+sampling_step:
+  - 390
+optimizer: SGD
+criterion: CE
+offset: 10
+interval: 10
+square_flag: true
+salt_policy: direct
+calc_policy: step
+calc_interval: 50

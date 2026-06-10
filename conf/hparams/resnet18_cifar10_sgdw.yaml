@@ -1,0 +1,8 @@
+learning_rate: 0.1 # 0.5 # for cosine schedule
+batch_size: 100
+
+sampling_step:
+  - 250
+
+weight_decay: 0.0005
+# schedule: COS

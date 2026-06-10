@@ -1,0 +1,9 @@
+name: cifar10
+num_classes: 10
+image_size: 32
+mean: [0.4914, 0.4822, 0.4465]
+std: [0.2470, 0.2435, 0.2616]
+augmentation:
+  random_crop: true
+  horizontal_flip: true
+  randaugment: false  # use CIFAR10Policy from src.augmentation instead

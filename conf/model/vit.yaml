@@ -1,0 +1,2 @@
+model_name: "vit"
+model_backend: "custom"

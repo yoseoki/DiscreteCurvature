@@ -1,0 +1,2 @@
+model_name: "resnet18"
+model_backend: "custom"

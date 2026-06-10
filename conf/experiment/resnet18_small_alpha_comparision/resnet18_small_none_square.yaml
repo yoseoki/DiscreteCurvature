@@ -1,0 +1,16 @@
+# @package _global_
+run_mode: none_square
+
+learning_rate: 0.05
+epochs: 60
+batch_size: 100
+sampling_step:
+  - 250
+optimizer: SGD
+criterion: CE
+offset: 5
+interval: 1
+square_flag: true
+salt_policy: none
+calc_policy: epoch
+calc_interval: 1
