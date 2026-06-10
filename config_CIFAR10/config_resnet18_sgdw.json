@@ -1,9 +1,0 @@
-{
-    "learning_rate" : 0.1,
-    "epochs" : 70,
-    "batch_size" : 100,
-    "sampling_step" : [250],
-    "optimizer" : "SGDW",
-    "criterion" : "CE",
-    "weight_decay" : 1e-4
-}

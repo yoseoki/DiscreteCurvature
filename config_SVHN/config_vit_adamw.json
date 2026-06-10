@@ -1,9 +1,0 @@
-{
-    "learning_rate" : 0.001,
-    "epochs" : 100,
-    "batch_size" : 128,
-    "sampling_step" : [250],
-    "optimizer" : "ADAMW",
-    "criterion" : "CE",
-    "weight_decay" : 1e-2
-}
